@@ -10,7 +10,7 @@ contains
 
         file_len = 0
         do
-            read(1,*, iostat=stat)
+            read(1, *, iostat=stat)
             if (stat /= 0) exit
             file_len = file_len + 1
         end do
@@ -19,8 +19,7 @@ contains
         rewind(1)
         
         do i = 1, file_len
-            read(1,*, iostat=stat) list(i)
-            if (stat /= 0) exit
+            read(1, *) list(i)
         end do
 
         close(1)
