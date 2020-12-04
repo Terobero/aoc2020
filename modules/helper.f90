@@ -8,7 +8,7 @@ contains
 
         max_line_length = 0
         do
-            read(unit, *, iostat=stat) line
+            read(unit, "(a)", iostat=stat) line
             if (stat /= 0) exit
 
             if (len_trim(line) > max_line_length) then
@@ -25,7 +25,7 @@ contains
 
         line_count = 0
         do
-            read(unit, *, iostat=stat)
+            read(unit, "(a)", iostat=stat)
             if (stat /= 0) exit
             line_count = line_count + 1
         end do
@@ -38,17 +38,17 @@ contains
         integer, allocatable :: list(:)
         integer :: i, file_len
 
-        open(unit=1, file=file_name, status="old", action="read")
+        open(unit=15, file=file_name, status="old", action="read")
 
-        file_len = count_file_lines(1)
+        file_len = count_file_lines(15)
         
         allocate(list(file_len))
         
         do i = 1, file_len
-            read(1, *) list(i)
+            read(15, *) list(i)
         end do
 
-        close(1)
+        close(15)
     end function
 
     function read_str_list(file_name) result(list)
@@ -56,16 +56,16 @@ contains
         character(:), allocatable :: list(:)
         integer :: i, file_len
 
-        open(unit=1, file=file_name, status="old", action="read")
+        open(unit=15, file=file_name, status="old", action="read")
 
-        file_len = count_file_lines(1)
+        file_len = count_file_lines(15)
         
-        allocate(character(longest_line_length(1)) :: list(file_len))
+        allocate(character(longest_line_length(15)) :: list(file_len))
         
         do i = 1, file_len
-            read(1, *) list(i)
+            read(15, "(a)") list(i)
         end do
 
-        close(1)
+        close(15)
     end function
 end module helper
