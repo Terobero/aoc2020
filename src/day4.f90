@@ -41,13 +41,13 @@ program day4
 
         if(list(i) .matches. ftlRegex("hgt:((1[5-8][0-9]|19[0-3])cm|(59|6[0-9]|7[0-6])in)")) fields_present(4) = .true.
 
-        if(list(i) .matches. ftlRegex("hcl:#([0-9a-f]{6})")) fields_present(5) = .true.
+        if(list(i) .matches. ftlRegex("hcl:#([0-9a-f]{6})\b")) fields_present(5) = .true.
 
         if(list(i) .matches. ftlRegex("ecl:(amb|blu|brn|gry|grn|hzl|oth)")) fields_present(6) = .true.
 
-        if(list(i) .matches. ftlRegex("pid:([0-9]{9})")) fields_present(7) = .true.
+        if(list(i) .matches. ftlRegex("pid:([0-9]{9})\b")) fields_present(7) = .true.
         
-        if (list(i) .eq. ""  .or. i == size(list)) then
+        if (list(i) .eq. "" .or. i == size(list)) then
             if (all(fields_present)) then
                 valid = valid + 1
             end if
