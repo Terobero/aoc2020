@@ -51,6 +51,24 @@ contains
         close(15)
     end function
 
+    function read_big_int_list(file_name) result(list)
+        character(*), intent(in) :: file_name
+        integer(16), allocatable :: list(:)
+        integer :: i, file_len
+
+        open(unit=15, file=file_name, status="old", action="read")
+
+        file_len = count_file_lines(15)
+        
+        allocate(list(file_len))
+        
+        do i = 1, file_len
+            read(15, *) list(i)
+        end do
+
+        close(15)
+    end function
+
     function read_str_list(file_name) result(list)
         character(*), intent(in) :: file_name
         character(:), allocatable :: list(:)
@@ -68,4 +86,19 @@ contains
 
         close(15)
     end function
+
+    subroutine bubblesort(list)
+        integer, intent(inout) :: list(:)
+        integer :: i, j, tmp
+
+        do i = 1, size(list)-1
+            do j = 1, size(list)-i
+                if (list(j) .gt. list(j+1)) then
+                    tmp = list(j)
+                    list(j) = list(j+1)
+                    list(j+1) = tmp
+                end if
+            end do
+        end do
+    end subroutine
 end module helper
